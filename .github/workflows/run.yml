@@ -1,0 +1,37 @@
+name: Auto Scrape SEEK NZ
+
+on:
+  schedule:
+    # 每天北京时间早上 8:30 和下午 5:30 自动执行 (对应 UTC 时间 00:30 和 09:30)
+    - cron: '30 0,9 * * *'
+  workflow_dispatch: # 允许你手动点击按钮随时运行
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v3
+
+    - name: 设置 Python 环境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: 安装依赖
+      run: |
+        pip install playwright pandas openpyxl
+        playwright install chromium
+
+    - name: 执行抓取脚本
+      run: python seek_spider.py
+
+    - name: 将生成的网页提交回仓库
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add index.html
+        git diff --quiet && git diff --staged --quiet || (git commit -m "自动更新职位列表" && git push)
