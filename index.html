@@ -1,978 +1,874 @@
-
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>NZ Blue-Collar Job Radar</title>
-        <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background-color: #f1f5f9; color: #1e293b; }
-            .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-            h2 { color: #0f172a; margin-top: 0; font-size: 28px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
-            
-            .dashboard { display: flex; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }
-            .stat-card { flex: 1; min-width: 200px; padding: 20px; border-radius: 8px; text-align: center; font-weight: bold; }
-            .stat-scanned { background-color: #f8fafc; border: 1px solid #e2e8f0; color: #475569; }
-            .stat-filtered { background-color: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
-            .stat-saved { background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; }
-            .stat-num { font-size: 32px; display: block; margin-top: 10px; }
-            
-            .time-banner { font-size: 14px; color: #64748b; margin-bottom: 20px; }
-            
-            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-            th, td { padding: 16px; text-align: left; border-bottom: 1px solid #f1f5f9; font-size: 15px; }
-            th { background-color: #f8fafc; color: #475569; font-weight: 600; text-transform: uppercase; font-size: 13px; letter-spacing: 0.5px; }
-            tr:hover { background-color: #f8fafc; }
-            
-            @media (max-width: 768px) {
-                table, thead, tbody, th, td, tr { display: block; }
-                th { display: none; }
-                tr { margin-bottom: 15px; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-                td { border-bottom: none; padding: 10px 0; display: flex; flex-direction: column; gap: 5px; }
-                td:last-child { margin-top: 10px; border-top: 1px dashed #e2e8f0; padding-top: 15px; }
-                td:before { content: attr(data-label); font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; }
-                .dashboard { flex-direction: column; gap: 10px; }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2>🇳🇿 New Zealand Pro Job Radar</h2>
-            <div class="time-banner">🕒 Data synced securely at: 2026-05-31 07:29:02</div>
-            
-            <div class="dashboard">
-                <div class="stat-card stat-scanned">
-                    Jobs Scanned
-                    <span class="stat-num">160</span>
-                </div>
-                <div class="stat-card stat-filtered">
-                    Local-Only Jobs Removed
-                    <span class="stat-num">0</span>
-                </div>
-                <div class="stat-card stat-saved">
-                    Overseas-Friendly Potential
-                    <span class="stat-num">128</span>
-                </div>
-            </div>
-
-            <table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Job Title</th>
-      <th>Employer</th>
-      <th>Location</th>
-      <th>Listed Date</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Solar Electrician Brisbane</td>
-      <td>Solar Install Co</td>
-      <td>Auckland CBD</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92129956" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Dryer Operator</td>
-      <td>Waiū Dairy Limited Partnership</td>
-      <td>Kawerau</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92371956" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Fabricator / Welder–Site Installation</td>
-      <td>Tradestaff</td>
-      <td>Manukau & East Auckland</td>
-      <td>5m ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426907" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Painter - Waiouru</td>
-      <td>PAE (NZ) Ltd</td>
-      <td>Waiouru Military Camp</td>
-      <td>2h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426617" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>CONTRACTOR CAR GROOMER</td>
-      <td>permashine international nz ltd</td>
-      <td>Newmarket</td>
-      <td>2h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426603" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Grounds Supervisor - Waiouru</td>
-      <td>PAE (NZ) Ltd</td>
-      <td>Waiouru</td>
-      <td>2h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426549" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Experienced Horizontal Driller / Locator</td>
-      <td>Valley Thrusting Contractors Ltd</td>
-      <td>Waihi Beach</td>
-      <td>4h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426223" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Electrical Trade Assistant</td>
-      <td>PAE (NZ) Ltd</td>
-      <td>Palmerston North Central</td>
-      <td>4h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426243" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Bobcat / Road Sweeper</td>
-      <td>TLH Recruitment</td>
-      <td>Auckland</td>
-      <td>7h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92425767" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Electrician/Fire Alarm Service Technician</td>
-      <td>Johnson Controls</td>
-      <td>Invercargill Central</td>
-      <td>10h ago</td>
-      <td><a href="https://www.seek.co.nz/job/91857445" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Drainlayer</td>
-      <td>Beaver Contractors</td>
-      <td>Queenstown Central</td>
-      <td>10h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92425513" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>HVAC Mechanical Service Technician</td>
-      <td>Horizon Energy Group</td>
-      <td>Queenstown Central</td>
-      <td>15h ago•Expiring</td>
-      <td><a href="https://www.seek.co.nz/job/92425295" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Milking Machine Tester</td>
-      <td>McGregor Farm Services 2018 Limited</td>
-      <td>Morrinsville</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92422371" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Window & Door Installers Wanted - Adelaide, South Australia</td>
-      <td>Australian Window Solutions</td>
-      <td>Auckland CBD</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92421670" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Commercial Tyre Technician / Wheel Alignment Hand</td>
-      <td>Axlelign</td>
-      <td>Hornby</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92421581" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Supervisor Cleaner</td>
-      <td>Property Services Unlimited (Waikato)</td>
-      <td>Hamilton Central</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92421257" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Experienced Service Technician</td>
-      <td>Waitaki Dairy Solutions Limited</td>
-      <td>Oamaru North</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92420820" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Forklift Driver</td>
-      <td>Sidekicker</td>
-      <td>Auckland CBD</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92418285" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>General Engineering / Welder Fabricator</td>
-      <td>Central Lakes Engineering</td>
-      <td>Wanaka</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92414730" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>HVAC Installer</td>
-      <td>Superheat Electrical and Air-conditioning</td>
-      <td>Hamilton Central</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92412432" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Labourer</td>
-      <td>Ryan Recruitment Limited</td>
-      <td>Canterbury</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92410073" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Yardhand / General Hand / Driver</td>
-      <td>Aggreko</td>
-      <td>Auckland Airport</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92409826" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Yardhand / General Hand / Driver</td>
-      <td>Aggreko</td>
-      <td>Christchurch Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92409708" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Forklift Operator - Coleridge Storage</td>
-      <td>Enviro NZ</td>
-      <td>Bromley</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92409284" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Parts Advisor</td>
-      <td>Broshmik Trucks Limited</td>
-      <td>Drury</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92408231" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Civil Operators - Ashburton</td>
-      <td>Paul Smith Earthmoving 2002 Limited</td>
-      <td>Ashburton</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92407606" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Crew Casual AV</td>
-      <td>Encore Event Technologies</td>
-      <td>Auckland CBD</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92407431" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Fencer</td>
-      <td>Farmland Foods</td>
-      <td>Whanganui Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92407048" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Product assembly worker</td>
-      <td>Easy Access Company, 1999, Ltd</td>
-      <td>Maungaturoto</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406859" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Qualified Builders</td>
-      <td>I Wilson Building</td>
-      <td>Queenstown</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92403538" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Golf and Turf Service Technician</td>
-      <td>Drummond and Etheridge</td>
-      <td>Cromwell</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406469" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Handy Person</td>
-      <td>Rosewood Hotels</td>
-      <td>Queenstown</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406304" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Graphic Designer</td>
-      <td>KENZZI</td>
-      <td>Auckland CBD</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92265230" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Manufacturing Supervisor</td>
-      <td>Talent Connection NZ Limited</td>
-      <td>Mount Wellington</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92272878" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Account Manager</td>
-      <td>Peacock Bros NZ Ltd</td>
-      <td>East Tamaki</td>
-      <td>4h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426252" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Grocery Team Leader</td>
-      <td>WorldFront</td>
-      <td>Wiri</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92422011" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Sales Representative - BDM Variety Channel</td>
-      <td>Private Advertiser</td>
-      <td>Wellington Central</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92421025" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Pharmacy Technician</td>
-      <td>Unichem Fifteenth ave pharmacy</td>
-      <td>Tauranga South</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92420867" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Production Manager</td>
-      <td>Portadown Farming Limited</td>
-      <td>Aongatete</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92420812" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Business Operations Manager</td>
-      <td>The People Place</td>
-      <td>Waitakere & West Auckland</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92408346" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Checkout Supervisor</td>
-      <td>Foodstuffs South Island</td>
-      <td>Northwood</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406924" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Technical Sales Engineer</td>
-      <td>Hire Wisely Ltd</td>
-      <td>Christchurch Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406033" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Auckland Sales Manager</td>
-      <td>Matthews Packaging & Hygiene</td>
-      <td>Mangere Bridge</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92405940" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Machine Operator</td>
-      <td>Adecco New Zealand</td>
-      <td>Christchurch Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92405780" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Activities & Events Crew Member</td>
-      <td>Christchurch City Council</td>
-      <td>Christchurch Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92404948" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Gallery Associate/Technician</td>
-      <td>Milford Galleries Ltd</td>
-      <td>Queenstown</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92404455" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Assembly Line Labourer</td>
-      <td>ALH Limited</td>
-      <td>Avondale</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92404490" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Delivery Driver - Experienced Class 2</td>
-      <td>Bidfood</td>
-      <td>Hamilton Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92404437" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Administration Support/Reception Officer</td>
-      <td>New Zealand Police</td>
-      <td>Auckland</td>
-      <td>2d ago•Expiring</td>
-      <td><a href="https://www.seek.co.nz/job/92404431" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Production Floor Supervisor – Seafood Processing</td>
-      <td>Westpac Mussels Distributors Ltd</td>
-      <td>Henderson</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92404055" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Greenkeeper x 2</td>
-      <td>Te Arai Links Golf Club Limited</td>
-      <td>Te Arai</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92403643" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Loans Assistant</td>
-      <td>Auckland Museum</td>
-      <td>Parnell</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92403499" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Entry Level Welding / Light Engineering</td>
-      <td>Reliance Recruitment</td>
-      <td>Rolleston</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402715" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Rural Playgroup Support, REAP Wairarapa</td>
-      <td>Wairarapa REAP</td>
-      <td>Masterton</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92403379" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Retail Assistant</td>
-      <td>Shosha</td>
-      <td>Dargaville</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402356" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Home Staging Furniture Mover</td>
-      <td>Spaces New Zealand Limited</td>
-      <td>Wairau Valley</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92378294" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Account Manager - Woolworths</td>
-      <td>Mondelez International</td>
-      <td>Avondale</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92400742" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Registered Nurse</td>
-      <td>Department of Health</td>
-      <td>Auckland CBD</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92400576" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>MERCHANDISER-GREETING CARDS</td>
-      <td>Image Gallery Ltd</td>
-      <td>Highland Park</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92400018" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Warehouse Storeperson</td>
-      <td>Windsor Doors Limited</td>
-      <td>Islington</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92398869" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Regional Manager/Principal Lawyer</td>
-      <td>Victoria Legal Aid</td>
-      <td>Wellington Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92399018" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Retail Assistant</td>
-      <td>Shosha</td>
-      <td>Rangiora</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92398711" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Office Admin</td>
-      <td>Dentec Limited</td>
-      <td>Maungaturoto</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92267683" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Contract Chief Financial Officer</td>
-      <td>Eden Office</td>
-      <td>Auckland Airport</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92259674" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Shop assistant</td>
-      <td>thames discounter and takeaways</td>
-      <td>Oamaru North</td>
-      <td>1h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426688" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Key Account Executive - Development Opportunity</td>
-      <td>Private Advertiser</td>
-      <td>Glenfield</td>
-      <td>3h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426495" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Despatch Coordinator</td>
-      <td>Reproduction Specialty Group (NZ)</td>
-      <td>Hamilton East</td>
-      <td>3h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426376" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Store Manager & Part-Time Team Member - Pizza Hut Petone</td>
-      <td>PIZZA HUT PETONE</td>
-      <td>Petone</td>
-      <td>4h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426183" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Customer Service Representative</td>
-      <td>Cooling Equipment Ltd</td>
-      <td>Christchurch Central</td>
-      <td>5h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92426208" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Retail Assistant Manager & Key Holder - Independent Sports Retail</td>
-      <td>Otago Sports Depot Ltd</td>
-      <td>Dunedin Central</td>
-      <td>7h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92425861" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Sales Assistant</td>
-      <td>Grahams Paper Plus (Gisborne) Ltd</td>
-      <td>Gisborne Central</td>
-      <td>9h ago</td>
-      <td><a href="https://www.seek.co.nz/job/92425537" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Part Time Retail Assistant | Repco Blenheim</td>
-      <td>Repco New Zealand</td>
-      <td>Blenheim</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92423044" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Store Manager - Premium Site - NZ's Top Performing Store</td>
-      <td>Luxottica Retail Australia Pty Ltd</td>
-      <td>Auckland Airport</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92421037" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Pastry Lead</td>
-      <td>Private Advertiser</td>
-      <td>Newmarket</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92420706" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Van Sales Rep</td>
-      <td>Maven Recruitment</td>
-      <td>Nelson Central</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92413451" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Class 2 Truck Driver / Freight Sorter</td>
-      <td>Aramex New Zealand</td>
-      <td>Wigram</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92410481" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>*Storage Consultant Superstar* All Secure Queenstown</td>
-      <td>All Secure Self Storage Limited</td>
-      <td>Queenstown</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92409929" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Retail Sales Specialist</td>
-      <td>Sydney Tools</td>
-      <td>Wairau Valley</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92409736" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Head of Flying Operations</td>
-      <td>Maroomba Airlines</td>
-      <td>Newmarket</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92409341" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Heat Press / DTF Printer Operator</td>
-      <td>NetYourJob</td>
-      <td>Sydenham</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92408955" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Inventory (Stores) Assistant</td>
-      <td>Triode Group Ltd</td>
-      <td>Wairau Valley</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92407822" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Production Team Member – Award-Winning Artisan Bakery</td>
-      <td>Thoroughbread Foods Ltd</td>
-      <td>Levin</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92011942" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Yard Person- Hastings</td>
-      <td>CablePrice</td>
-      <td>Hastings Central</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92361589" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>HVAC Sales Consultant - Auckland</td>
-      <td>Oxygen NZ Ltd</td>
-      <td>Auckland CBD</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92422609" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Chef / Burger Smasher</td>
-      <td>Last Place</td>
-      <td>Hamilton Central</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92422643" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Kitchen Hand</td>
-      <td>Aosta</td>
-      <td>Arrowtown</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92418788" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Holiday Home Cleaner / Housekeeper</td>
-      <td>CleanBNB</td>
-      <td>Queenstown</td>
-      <td>1d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92416986" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Support Worker - Gore</td>
-      <td>Access Community Health</td>
-      <td>Gore</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92410070" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Support Worker - Bays Area</td>
-      <td>Access Community Health</td>
-      <td>Akaroa</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92410068" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Support Worker - North Canterbury</td>
-      <td>New Zealand Health Group</td>
-      <td>North Canterbury</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92408082" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Baker / Senior Baker</td>
-      <td>Foodstuffs South Island</td>
-      <td>Hokitika</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92407664" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Industrial Chemist - Compliance & Regulatory</td>
-      <td>Dukes Advisory Ltd</td>
-      <td>Mangere</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92407484" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Service Technician</td>
-      <td>Dukes Advisory Ltd</td>
-      <td>Mangere</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406976" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>POSITION: HOUSEKEEPER/CLEANER | Full-time or Casual |</td>
-      <td>Luxe Stay Holiday Homes</td>
-      <td>Queenstown</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406806" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Customer Service Representative (Part Time) - bp Connect Riverside (Whangarei)</td>
-      <td>BP Oil New Zealand Limited</td>
-      <td>Riverside</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406433" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Support Worker - North Auckland - Casual</td>
-      <td>Access Community Health</td>
-      <td>Northcote</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406179" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Support Workers - Central Auckland - Weekend Work</td>
-      <td>Access Community Health</td>
-      <td>Ellerslie</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406075" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Onsite Cleaner</td>
-      <td>Chandler Macleod</td>
-      <td>Taupo</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92405914" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Account Manager/Product Specialist</td>
-      <td>Bio-Zyme NZ Limited</td>
-      <td>Wigram</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92405545" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Event Services Attendant</td>
-      <td>Tātaki Auckland Unlimited</td>
-      <td>Auckland CBD</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92404809" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Food & Beverage Assistant | Casual</td>
-      <td>Oceania Healthcare</td>
-      <td>Auckland CBD</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92403175" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Domestic Assistant - Dunedin</td>
-      <td>Access Community Health</td>
-      <td>Dunedin Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92403100" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Merchandiser| Christchurch</td>
-      <td>George Weston Foods (NZ) Limited</td>
-      <td>Christchurch</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402998" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Support Worker - Dargaville</td>
-      <td>Access Community Health</td>
-      <td>Dargaville</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402871" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Casual Support Worker - Kerikeri</td>
-      <td>Access Community Health</td>
-      <td>Kerikeri</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402686" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Health and Safety Manager</td>
-      <td>J & R Contracting Ltd</td>
-      <td>Penrose</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92081803" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Finance & Office Administrator</td>
-      <td>Habitat NZ Ltd</td>
-      <td>Ellerslie</td>
-      <td>Featured</td>
-      <td><a href="https://www.seek.co.nz/job/92184842" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Growth Marketing Specialist</td>
-      <td>NORTHRIDE NEW ZEALAND LIMITED</td>
-      <td>Auckland CBD</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92410053" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Service Technician Electrical</td>
-      <td>Aggreko</td>
-      <td>Auckland Airport</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92409928" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Conference & Events Coordinator - Rydges Auckland</td>
-      <td>RYDGES AUCKLAND</td>
-      <td>Auckland CBD</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406888" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Plant Mechanic</td>
-      <td>ALH Limited</td>
-      <td>Otahuhu</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406706" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Property Analyst | Ngai Tahu Holdings</td>
-      <td>Ngāi Tahu</td>
-      <td>Christchurch Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92406658" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Operations Co-ordinator</td>
-      <td>MinEx Health and Safety Council of New Zealand Inc</td>
-      <td>Wellington Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92405722" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Sales Support and Office Administrator</td>
-      <td>Southquip Industrial</td>
-      <td>Invercargill Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92405679" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>CNC Machinist / Programmer</td>
-      <td>ITSS Engineering</td>
-      <td>Warkworth</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92405582" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Accounts Officer</td>
-      <td>Archway Recruitment</td>
-      <td>Island Bay</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92405339" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Builder</td>
-      <td>NZ Labour Hire Group</td>
-      <td>Hamilton Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92405292" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Construction Labourers</td>
-      <td>Rightmove Recruitment NZ Ltd</td>
-      <td>Queenstown</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92404740" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Executive Producer Business Breakfast</td>
-      <td>TVNZ</td>
-      <td>Auckland</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92404197" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Finance Manager</td>
-      <td>Fresh Connection</td>
-      <td>Pukekohe</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92403614" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Payroll & Finance Administrator</td>
-      <td>Livingstone Building Ltd</td>
-      <td>Hamilton North</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92403373" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Assistant Accountant</td>
-      <td>Talent ID</td>
-      <td>Rotorua Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402700" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Pharmacy Assistant</td>
-      <td>Chemist Warehouse</td>
-      <td>Auckland</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402488" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Assistant Accountant</td>
-      <td>Talent ID</td>
-      <td>Taupo Central</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402363" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Heavy Diesel Mechanic</td>
-      <td>Smith Crane and Construction</td>
-      <td>Otaki</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402310" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Electrical trade assistant</td>
-      <td>Turbo Staff</td>
-      <td>Auckland Airport</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92402090" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>Plumber, Drainlayer or Gasfitter</td>
-      <td>Horizon Energy Group</td>
-      <td>Auckland CBD</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92401541" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-    <tr>
-      <td>LABOURERS</td>
-      <td>The Labour Supply Co</td>
-      <td>Auckland</td>
-      <td>2d ago</td>
-      <td><a href="https://www.seek.co.nz/job/92401022" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a></td>
-    </tr>
-  </tbody>
-</table>
-        </div>
-        <script>
-            const headers = ["Job Title", "Employer", "Location", "Listed Date", "Action"];
-            document.querySelectorAll('tbody tr').forEach(tr => {
-                tr.querySelectorAll('td').forEach((td, i) => {
-                    td.setAttribute('data-label', headers[i]);
-                });
-            });
-        </script>
-    </body>
-    </html>
-    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEEK NZ Jobs — 2026-05-31 08:34</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f5f3ee;--sur:#fff;--ink:#1a1a18;--muted:#7a7870;--bdr:#e0ddd6;
+      --grn:#1a6b4a;--grn-lt:#e8f3ee;--org:#c45c1a;
+      --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);padding:48px 32px 96px}
+.topbar{max-width:1080px;margin:0 auto 40px;display:flex;justify-content:space-between;
+         align-items:flex-start;padding-bottom:28px;border-bottom:2px solid var(--ink);flex-wrap:wrap;gap:24px}
+.logo{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+h1{font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+h1 em{font-style:normal;color:var(--grn)}
+.sub{font-size:13px;color:var(--muted);margin-top:6px;font-weight:300}
+.run{text-align:right;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.9}
+.stats{max-width:1080px;margin:0 auto 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--sur);border:1px solid var(--bdr);padding:20px 22px}
+.stat-n{font-family:var(--mono);font-size:38px;line-height:1}
+.stat-n.g{color:var(--grn)}.stat-n.o{color:var(--org)}
+.stat-lbl{font-size:10px;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+.stat-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.wrap{max-width:1080px;margin:0 auto;background:var(--sur);border:1px solid var(--bdr);overflow-x:auto}
+.thead{display:flex;justify-content:space-between;align-items:center;
+        padding:14px 20px;border-bottom:1px solid var(--bdr);background:#fafaf8}
+.tlbl{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.cnt{font-family:var(--mono);font-size:11px;background:var(--grn-lt);color:var(--grn);padding:4px 12px;border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{text-align:left;font-size:10px;font-weight:500;text-transform:uppercase;
+          letter-spacing:.1em;color:var(--muted);padding:12px 20px;
+          border-bottom:1px solid var(--bdr);background:#fafaf8;font-family:var(--mono)}
+tr{animation:ri .35s ease both;border-bottom:1px solid var(--bdr);transition:background .12s}
+tr:last-child{border-bottom:none}tr:hover{background:#fafaf8}
+@keyframes ri{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+td{padding:14px 20px;vertical-align:middle}
+.td-title a{color:var(--ink);text-decoration:none;font-weight:500;display:block}
+.td-title a:hover{color:var(--grn);text-decoration:underline}
+.badge{display:inline-block;margin-top:5px;font-size:10px;font-family:var(--mono);
+        color:var(--muted);background:var(--bg);padding:2px 8px;border:1px solid var(--bdr)}
+.td-co,.td-loc{color:var(--muted);font-size:13px;width:18%}
+.td-btn{width:10%;text-align:right}
+.btn{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:500;
+      color:var(--grn);border:1px solid var(--grn);padding:6px 14px;text-decoration:none;
+      transition:all .15s;white-space:nowrap}
+.btn:hover{background:var(--grn);color:#fff}
+.empty{text-align:center;padding:60px;color:var(--muted)}
+.foot{max-width:1080px;margin:20px auto 0;display:flex;gap:20px;flex-wrap:wrap;
+       font-family:var(--mono);font-size:11px;color:var(--muted)}
+.foot b{color:var(--org)}
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .td-co,.td-loc{display:none}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div>
+    <div class="logo">// seek.co.nz · auto scan</div>
+    <h1>NZ <em>Labour</em> Jobs</h1>
+    <div class="sub">Labourer · Warehouse · Manufacturing · Construction · Trades · General Hand<br>
+    Excludes big cities &amp; visa-required roles</div>
+  </div>
+  <div class="run">Updated 2026-05-31 08:34<br>3 pages × 6 categories</div>
+</div>
+<div class="stats">
+  <div class="stat"><div class="stat-n">540</div><div class="stat-lbl">Scanned</div><div class="stat-sub">total listings</div></div>
+  <div class="stat"><div class="stat-n o">165</div><div class="stat-lbl">Visa / Rights</div><div class="stat-sub">sponsorship needed</div></div>
+  <div class="stat"><div class="stat-n o">304</div><div class="stat-lbl">City / Role</div><div class="stat-sub">excluded</div></div>
+  <div class="stat"><div class="stat-n g">71</div><div class="stat-lbl">Qualified</div><div class="stat-sub">ready to apply</div></div>
+</div>
+<div class="wrap">
+  <div class="thead">
+    <span class="tlbl">Results</span>
+    <span class="cnt">71 jobs</span>
+  </div>
+  <table>
+    <thead><tr><th>Job Title</th><th>Company</th><th>Location</th><th></th></tr></thead>
+    <tbody>
+        <tr style="animation-delay:0.00s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92426617?type=standard&ref=search-standalone#sol=a12dd35fa66e0d7d81c54ea48a3c0084a6818bce" target="_blank">Painter - Waiouru</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">PAE (NZ) Ltd</td>
+          <td class="td-loc">Waiouru Military Camp</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92426617?type=standard&ref=search-standalone#sol=a12dd35fa66e0d7d81c54ea48a3c0084a6818bce" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.03s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92426243?type=standard&ref=search-standalone#sol=9529caba9cc974c3842b7b4e9d01509ade8dd92a" target="_blank">Electrical Trade Assistant</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">PAE (NZ) Ltd</td>
+          <td class="td-loc">Palmerston North Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92426243?type=standard&ref=search-standalone#sol=9529caba9cc974c3842b7b4e9d01509ade8dd92a" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.06s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92410073?type=standard&ref=search-standalone#sol=08bfbde0b4311dd09eeaa92bc9a4d0f2b0876d44" target="_blank">Labourer</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Ryan Recruitment Limited</td>
+          <td class="td-loc">Canterbury</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92410073?type=standard&ref=search-standalone#sol=08bfbde0b4311dd09eeaa92bc9a4d0f2b0876d44" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.09s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92406304?type=standard&ref=search-standalone#sol=9651d94a768dbd15349d6715dda304d3fb5c0b80" target="_blank">Handy Person</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Rosewood Hotels</td>
+          <td class="td-loc">Queenstown</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92406304?type=standard&ref=search-standalone#sol=9651d94a768dbd15349d6715dda304d3fb5c0b80" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.12s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92406100?type=standard&ref=search-standalone#sol=b9cd272b98e16b37a193f13975666aead6747e62" target="_blank">Cyclic Operator</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Fulton Hogan</td>
+          <td class="td-loc">Dannevirke</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92406100?type=standard&ref=search-standalone#sol=b9cd272b98e16b37a193f13975666aead6747e62" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.15s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405914?type=standard&ref=search-standalone#sol=a2c7fb636a0f70dc2a25af07eb71d155bb4745e7" target="_blank">Onsite Cleaner</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Chandler Macleod</td>
+          <td class="td-loc">Taupo</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405914?type=standard&ref=search-standalone#sol=a2c7fb636a0f70dc2a25af07eb71d155bb4745e7" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.18s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405347?type=standard&ref=search-standalone#sol=ebf725cb04944f7772a6cf01d477a63e76824041" target="_blank">Plumbers</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Enterprise Recruitment</td>
+          <td class="td-loc">Queenstown</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405347?type=standard&ref=search-standalone#sol=ebf725cb04944f7772a6cf01d477a63e76824041" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.21s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92404686?type=standard&ref=search-standalone#sol=6d11c163775770cd7f2c8921e4a6ddb8f712d69d" target="_blank">Drainlayer - Canterbury</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Enterprise Recruitment</td>
+          <td class="td-loc">Cromwell</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92404686?type=standard&ref=search-standalone#sol=6d11c163775770cd7f2c8921e4a6ddb8f712d69d" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.24s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92404422?type=standard&ref=search-standalone#sol=311c068c6038bb947c291ac86f4a40103207c7db" target="_blank">Site Foreman | Civil</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Redpath Partners Pty Ltd</td>
+          <td class="td-loc">Canterbury</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92404422?type=standard&ref=search-standalone#sol=311c068c6038bb947c291ac86f4a40103207c7db" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.27s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92404009?type=standard&ref=search-standalone#sol=2067829ebc5beab5a34b4224c93cdc6e4a228156" target="_blank">Gardener/Groundskeeper</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">RealNZ</td>
+          <td class="td-loc">Queenstown</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92404009?type=standard&ref=search-standalone#sol=2067829ebc5beab5a34b4224c93cdc6e4a228156" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.30s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92403643?type=standard&ref=search-standalone#sol=350f237ccb34cca6ec3a3a5780d512990f2f096d" target="_blank">Greenkeeper x 2</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Te Arai Links Golf Club Limited</td>
+          <td class="td-loc">Te Arai</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92403643?type=standard&ref=search-standalone#sol=350f237ccb34cca6ec3a3a5780d512990f2f096d" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.33s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92403165?type=standard&ref=search-standalone#sol=6b4710d2f50c02316cbfb27bc06c220cc15cbb80" target="_blank">Cyclic Lead</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">DOWNER NZ</td>
+          <td class="td-loc">Hamilton</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92403165?type=standard&ref=search-standalone#sol=6b4710d2f50c02316cbfb27bc06c220cc15cbb80" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.36s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92399663?type=standard&ref=search-standalone#sol=4f820663d7825e60e133b8896a23fcfd1c064ca1" target="_blank">Asphalt Operators</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">OneStaff Palmerston North</td>
+          <td class="td-loc">Palmerston North Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92399663?type=standard&ref=search-standalone#sol=4f820663d7825e60e133b8896a23fcfd1c064ca1" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.39s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92398430?type=standard&ref=search-standalone#sol=fc9b893e19812b49b287d3a85280176437860b81" target="_blank">Dairy Farm Assistant/Farm Hand - Aurora Dairies</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Aurora Dairies</td>
+          <td class="td-loc">Ranfurly</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92398430?type=standard&ref=search-standalone#sol=fc9b893e19812b49b287d3a85280176437860b81" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.42s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92397823?type=standard&ref=search-standalone#sol=ad80975dd0c5ae6b2d8271631c37d15119964901" target="_blank">Storeperson - Forklift/Warehouse Operator</a>
+            <span class="badge">Labourer</span>
+          </td>
+          <td class="td-co">Hilton Haulage</td>
+          <td class="td-loc">Timaru</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92397823?type=standard&ref=search-standalone#sol=ad80975dd0c5ae6b2d8271631c37d15119964901" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.45s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92423044?type=standard&ref=search-standalone#sol=b58ef4686682704abba52a34a0b152f785b96ea6" target="_blank">Part Time Retail Assistant | Repco Blenheim</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Repco New Zealand</td>
+          <td class="td-loc">Blenheim</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92423044?type=standard&ref=search-standalone#sol=b58ef4686682704abba52a34a0b152f785b96ea6" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.48s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92413451?type=standard&ref=search-standalone#sol=6a62f8cc0167af4e046efc866503b53daee22e16" target="_blank">Van Sales Rep</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Maven Recruitment</td>
+          <td class="td-loc">Nelson Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92413451?type=standard&ref=search-standalone#sol=6a62f8cc0167af4e046efc866503b53daee22e16" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.51s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92410073?type=standard&ref=search-standalone#sol=051266835650feb7039d61c609cc7a794fc27b1d" target="_blank">Labourer</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Ryan Recruitment Limited</td>
+          <td class="td-loc">Canterbury</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92410073?type=standard&ref=search-standalone#sol=051266835650feb7039d61c609cc7a794fc27b1d" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.54s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92409341?type=standard&ref=search-standalone#sol=148aadcdc2fe0bf21cb3563cb910e671ffa53eb6" target="_blank">Head of Flying Operations</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Maroomba Airlines</td>
+          <td class="td-loc">Newmarket</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92409341?type=standard&ref=search-standalone#sol=148aadcdc2fe0bf21cb3563cb910e671ffa53eb6" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.57s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92406304?type=standard&ref=search-standalone#sol=ca48a169df9d9ea5857fe238a8d31fea1c202572" target="_blank">Handy Person</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Rosewood Hotels</td>
+          <td class="td-loc">Queenstown</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92406304?type=standard&ref=search-standalone#sol=ca48a169df9d9ea5857fe238a8d31fea1c202572" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.60s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92406200?type=standard&ref=search-standalone#sol=5c462b72f0271dfe1a55c0efb85381b6e02c1959" target="_blank">Stock controller /Rego</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Harmony New Energy Auto Pro Servicing Pty Ltd</td>
+          <td class="td-loc">East Tamaki</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92406200?type=standard&ref=search-standalone#sol=5c462b72f0271dfe1a55c0efb85381b6e02c1959" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.63s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405914?type=standard&ref=search-standalone#sol=76aac22e0430b733767c9b52c1357426c259ef15" target="_blank">Onsite Cleaner</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Chandler Macleod</td>
+          <td class="td-loc">Taupo</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405914?type=standard&ref=search-standalone#sol=76aac22e0430b733767c9b52c1357426c259ef15" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.66s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405631?type=standard&ref=search-standalone#sol=0f6744e96406ae13ebcfc78beca44ede357e4deb" target="_blank">Internal Sales Representative</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Motion Recruitment</td>
+          <td class="td-loc">Wiri</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405631?type=standard&ref=search-standalone#sol=0f6744e96406ae13ebcfc78beca44ede357e4deb" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.69s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92404062?type=standard&ref=search-standalone#sol=ff8de3e4c4ae15176b748dc2adc00dbf7d03c3db" target="_blank">Production Planner</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Westland Milk Products</td>
+          <td class="td-loc">Hokitika</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92404062?type=standard&ref=search-standalone#sol=ff8de3e4c4ae15176b748dc2adc00dbf7d03c3db" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.72s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92402957?type=standard&ref=search-standalone#sol=b8dcfc113dcd8912ce54f88200369309085c683d" target="_blank">Part Time Retail Assistant | Repco Rangiora</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Repco New Zealand</td>
+          <td class="td-loc">Rangiora</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92402957?type=standard&ref=search-standalone#sol=b8dcfc113dcd8912ce54f88200369309085c683d" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.75s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92402684?type=standard&ref=search-standalone#sol=fed8cc6c70673622f4e087124460f8c75889c116" target="_blank">Traffic Management Coordinator</a>
+            <span class="badge">Warehouse</span>
+          </td>
+          <td class="td-co">Whakatane District Council</td>
+          <td class="td-loc">Whakatane</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92402684?type=standard&ref=search-standalone#sol=fed8cc6c70673622f4e087124460f8c75889c116" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.78s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92406900?type=standard&ref=search-standalone#sol=ee4baaf111c437b4bd67a9fe463a131ac462b7f0" target="_blank">Installation & Service Coordinator</a>
+            <span class="badge">Manufacturing</span>
+          </td>
+          <td class="td-co">Moffat NZ</td>
+          <td class="td-loc">Rolleston</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92406900?type=standard&ref=search-standalone#sol=ee4baaf111c437b4bd67a9fe463a131ac462b7f0" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.81s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405631?type=standard&ref=search-standalone#sol=7e76e94a8cb56a11b5e2914cf9185eccd8569445" target="_blank">Internal Sales Representative</a>
+            <span class="badge">Manufacturing</span>
+          </td>
+          <td class="td-co">Motion Recruitment</td>
+          <td class="td-loc">Wiri</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405631?type=standard&ref=search-standalone#sol=7e76e94a8cb56a11b5e2914cf9185eccd8569445" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.84s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92404532?type=standard&ref=search-standalone#sol=c71b8d02594b37d8404c708e7624709311726334" target="_blank">People & Culture Advisor</a>
+            <span class="badge">Manufacturing</span>
+          </td>
+          <td class="td-co">Synlait Milk Ltd</td>
+          <td class="td-loc">Dunsandel</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92404532?type=standard&ref=search-standalone#sol=c71b8d02594b37d8404c708e7624709311726334" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.87s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92404062?type=standard&ref=search-standalone#sol=b37dc485624e5067f3b8982de817dd56882bd9be" target="_blank">Production Planner</a>
+            <span class="badge">Manufacturing</span>
+          </td>
+          <td class="td-co">Westland Milk Products</td>
+          <td class="td-loc">Hokitika</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92404062?type=standard&ref=search-standalone#sol=b37dc485624e5067f3b8982de817dd56882bd9be" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.90s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92403492?type=standard&ref=search-standalone#sol=39c82dab92221c42d43f0a5d26c884a262d50b44" target="_blank">Scheduling Lead / Superintendent</a>
+            <span class="badge">Manufacturing</span>
+          </td>
+          <td class="td-co">Todd Energy</td>
+          <td class="td-loc">New Plymouth Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92403492?type=standard&ref=search-standalone#sol=39c82dab92221c42d43f0a5d26c884a262d50b44" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.93s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92401610?type=standard&ref=search-standalone#sol=a57bd90f9f6b0d372d615e5d72538509b66402c7" target="_blank">QA/QC SPECIALIST</a>
+            <span class="badge">Manufacturing</span>
+          </td>
+          <td class="td-co">HR Connect Limited</td>
+          <td class="td-loc">Horotiu</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92401610?type=standard&ref=search-standalone#sol=a57bd90f9f6b0d372d615e5d72538509b66402c7" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.96s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92398545?type=standard&ref=search-standalone#sol=6c9db4e3b81e8d13f672bcca3a03069ead697f85" target="_blank">Associate Property & Commercial Lawyer</a>
+            <span class="badge">Manufacturing</span>
+          </td>
+          <td class="td-co">People Passion</td>
+          <td class="td-loc">New Plymouth Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92398545?type=standard&ref=search-standalone#sol=6c9db4e3b81e8d13f672bcca3a03069ead697f85" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:0.99s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92397823?type=standard&ref=search-standalone#sol=919b8b6045b6fb1704ac511cbb8cb3c8842f5087" target="_blank">Storeperson - Forklift/Warehouse Operator</a>
+            <span class="badge">Manufacturing</span>
+          </td>
+          <td class="td-co">Hilton Haulage</td>
+          <td class="td-loc">Timaru</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92397823?type=standard&ref=search-standalone#sol=919b8b6045b6fb1704ac511cbb8cb3c8842f5087" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.02s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92426243?type=standard&ref=search-standalone#sol=b9cb5fdc029cdf44d0da6ec8cc923d194f1eddd1" target="_blank">Electrical Trade Assistant</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">PAE (NZ) Ltd</td>
+          <td class="td-loc">Palmerston North Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92426243?type=standard&ref=search-standalone#sol=b9cb5fdc029cdf44d0da6ec8cc923d194f1eddd1" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.05s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92410073?type=standard&ref=search-standalone#sol=1d40b7e87c4c89c1689a872f3a309222846a96e3" target="_blank">Labourer</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">Ryan Recruitment Limited</td>
+          <td class="td-loc">Canterbury</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92410073?type=standard&ref=search-standalone#sol=1d40b7e87c4c89c1689a872f3a309222846a96e3" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.08s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405339?type=standard&ref=search-standalone#sol=82361fac4dc68e708acaa4d695b50d7461c2f2d8" target="_blank">Accounts Officer</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">Archway Recruitment</td>
+          <td class="td-loc">Island Bay</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405339?type=standard&ref=search-standalone#sol=82361fac4dc68e708acaa4d695b50d7461c2f2d8" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.11s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92400515?type=standard&ref=search-standalone#sol=4f96230f729789777b18adb72e0389835df829e2" target="_blank">Pharmacy Assistant</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">Chemist Warehouse</td>
+          <td class="td-loc">Whanganui Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92400515?type=standard&ref=search-standalone#sol=4f96230f729789777b18adb72e0389835df829e2" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.14s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92399821?type=standard&ref=search-standalone#sol=3825c175d384ad974fe620f57b2b72875e120d55" target="_blank">Customer Service Representatives (9 month Fixed-term)</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">Meridian Energy</td>
+          <td class="td-loc">Masterton</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92399821?type=standard&ref=search-standalone#sol=3825c175d384ad974fe620f57b2b72875e120d55" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.17s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92396656?type=standard&ref=search-standalone#sol=3b29caa0bc69a2297b9f22237eeb4a4eea9ba4b6" target="_blank">Contract Administrator</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">DOWNER NZ</td>
+          <td class="td-loc">Dunedin Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92396656?type=standard&ref=search-standalone#sol=3b29caa0bc69a2297b9f22237eeb4a4eea9ba4b6" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.20s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92395464?type=standard&ref=search-standalone#sol=1b60af50f1489c10a05f6b727c0196a0a17c97b9" target="_blank">Gardener/Groundsperson</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">Craggy Range</td>
+          <td class="td-loc">Havelock North</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92395464?type=standard&ref=search-standalone#sol=1b60af50f1489c10a05f6b727c0196a0a17c97b9" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.23s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92384637?type=standard&ref=search-standalone#sol=b092594bac39307ddd3210236f6840d30281537e" target="_blank">Stainless Steel Welder / Process Pipe Fabricator</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">WYN&CO Search Recruitment & Payroll</td>
+          <td class="td-loc">Wiri</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92384637?type=standard&ref=search-standalone#sol=b092594bac39307ddd3210236f6840d30281537e" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.26s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92381376?type=standard&ref=search-standalone#sol=d33cf83f45524adcdc9730452b6417a20a753b0a" target="_blank">Operator - Sorting</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">Palmerston North City Council</td>
+          <td class="td-loc">Palmerston North Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92381376?type=standard&ref=search-standalone#sol=d33cf83f45524adcdc9730452b6417a20a753b0a" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.29s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92379507?type=standard&ref=search-standalone#sol=f3d91c854932cf66c1a87509fbba4d0b80f7b8a1" target="_blank">Forklift Operator</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">OneStaff Auckland (South) Karaka</td>
+          <td class="td-loc">Pokeno</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92379507?type=standard&ref=search-standalone#sol=f3d91c854932cf66c1a87509fbba4d0b80f7b8a1" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.32s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92378669?type=standard&ref=search-standalone#sol=1e9860c70872c962a9bd68c2944ed516daec0cfc" target="_blank">Infrastructure Operator</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">InterGroup Limited</td>
+          <td class="td-loc">Tauranga Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92378669?type=standard&ref=search-standalone#sol=1e9860c70872c962a9bd68c2944ed516daec0cfc" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.35s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92377935?type=standard&ref=search-standalone#sol=c60367c257cb3810baab7b5fe5ea0d217e808b69" target="_blank">Workshop Assistant - Gisborne Port</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">Qube Ports NZ</td>
+          <td class="td-loc">Gisborne Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92377935?type=standard&ref=search-standalone#sol=c60367c257cb3810baab7b5fe5ea0d217e808b69" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.38s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92376132?type=standard&ref=search-standalone#sol=dc798359395dc11d949ee1836c2467fe74a40bd9" target="_blank">Senior Field Staff - Construction</a>
+            <span class="badge">General Hand</span>
+          </td>
+          <td class="td-co">New Plymouth District Council</td>
+          <td class="td-loc">New Plymouth Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92376132?type=standard&ref=search-standalone#sol=dc798359395dc11d949ee1836c2467fe74a40bd9" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.41s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92406100?type=standard&ref=search-standalone#sol=9b845a4177be8a8cc4c9b6c0eb4c888b770e79b0" target="_blank">Cyclic Operator</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">Fulton Hogan</td>
+          <td class="td-loc">Dannevirke</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92406100?type=standard&ref=search-standalone#sol=9b845a4177be8a8cc4c9b6c0eb4c888b770e79b0" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.44s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405914?type=standard&ref=search-standalone#sol=b6ef9dd342654d75d2b5ff92767889a0b78ebab6" target="_blank">Onsite Cleaner</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">Chandler Macleod</td>
+          <td class="td-loc">Taupo</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405914?type=standard&ref=search-standalone#sol=b6ef9dd342654d75d2b5ff92767889a0b78ebab6" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.47s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92404686?type=standard&ref=search-standalone#sol=bf4ed82312c7131d3d6a5021c18c14b6a2a019f8" target="_blank">Drainlayer - Canterbury</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">Enterprise Recruitment</td>
+          <td class="td-loc">Cromwell</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92404686?type=standard&ref=search-standalone#sol=bf4ed82312c7131d3d6a5021c18c14b6a2a019f8" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.50s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92404422?type=standard&ref=search-standalone#sol=15eb59223158de4d84bb51ebf0b34f2205b4737d" target="_blank">Site Foreman | Civil</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">Redpath Partners Pty Ltd</td>
+          <td class="td-loc">Canterbury</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92404422?type=standard&ref=search-standalone#sol=15eb59223158de4d84bb51ebf0b34f2205b4737d" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.53s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92403165?type=standard&ref=search-standalone#sol=73e22270ac0c8b11a07b79786da5179f01811bc0" target="_blank">Cyclic Lead</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">DOWNER NZ</td>
+          <td class="td-loc">Hamilton</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92403165?type=standard&ref=search-standalone#sol=73e22270ac0c8b11a07b79786da5179f01811bc0" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.56s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92402684?type=standard&ref=search-standalone#sol=63d90763713009f8a3f137117a7e6c30b70386dd" target="_blank">Traffic Management Coordinator</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">Whakatane District Council</td>
+          <td class="td-loc">Whakatane</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92402684?type=standard&ref=search-standalone#sol=63d90763713009f8a3f137117a7e6c30b70386dd" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.59s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92401194?type=standard&ref=search-standalone#sol=b129f51232caf9ffd027316f9e0bd56d00f77440" target="_blank">Building Control Officer - Processing</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">Tauranga City Council</td>
+          <td class="td-loc">Tauranga Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92401194?type=standard&ref=search-standalone#sol=b129f51232caf9ffd027316f9e0bd56d00f77440" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.62s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92399663?type=standard&ref=search-standalone#sol=e1960666d47ddd35975a1611662d74c42720b31e" target="_blank">Asphalt Operators</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">OneStaff Palmerston North</td>
+          <td class="td-loc">Palmerston North Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92399663?type=standard&ref=search-standalone#sol=e1960666d47ddd35975a1611662d74c42720b31e" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.65s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92396807?type=standard&ref=search-standalone#sol=29ba2ca12c49514b973808c8b3e5d3e0dff7e738" target="_blank">SmartGrass Operations Coordinator</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">SmartGrass NZ</td>
+          <td class="td-loc">Kainga</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92396807?type=standard&ref=search-standalone#sol=29ba2ca12c49514b973808c8b3e5d3e0dff7e738" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.68s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92396266?type=standard&ref=search-standalone#sol=a353d8127f101df229b11178a2b8edc0d4a1625a" target="_blank">STMS</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">Higgins</td>
+          <td class="td-loc">Ngauranga</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92396266?type=standard&ref=search-standalone#sol=a353d8127f101df229b11178a2b8edc0d4a1625a" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.71s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92395408?type=standard&ref=search-standalone#sol=231badf5fd269433b85547de403f46f22ba53752" target="_blank">Ashburton Maintenance Foreperson</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">Fulton Hogan</td>
+          <td class="td-loc">Ashburton</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92395408?type=standard&ref=search-standalone#sol=231badf5fd269433b85547de403f46f22ba53752" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.74s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92381790?type=standard&ref=search-standalone#sol=c24ba9f2bf49ec97f88c814e344e22f2912696d4" target="_blank">Land Surveyor</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">RobLawMax Recruitment</td>
+          <td class="td-loc">Queenstown</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92381790?type=standard&ref=search-standalone#sol=c24ba9f2bf49ec97f88c814e344e22f2912696d4" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.77s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92373639?type=standard&ref=search-standalone#sol=17f0fea874138f10dc112244ebb3b1cafc39d304" target="_blank">STMS - Taihape</a>
+            <span class="badge">Construction</span>
+          </td>
+          <td class="td-co">Fulton Hogan</td>
+          <td class="td-loc">Taihape</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92373639?type=standard&ref=search-standalone#sol=17f0fea874138f10dc112244ebb3b1cafc39d304" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.80s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92426984?type=standard&ref=search-standalone#sol=ac9be89f85c2049705b7ab9ebcc5d5b5be1e0154" target="_blank">Heavy Vehicle Auto Electrician</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">Tradestaff</td>
+          <td class="td-loc">Wiri</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92426984?type=standard&ref=search-standalone#sol=ac9be89f85c2049705b7ab9ebcc5d5b5be1e0154" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.83s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92426617?type=standard&ref=search-standalone#sol=2cf72c0a35ca636cb95a3c5bef5baaab4a45f63b" target="_blank">Painter - Waiouru</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">PAE (NZ) Ltd</td>
+          <td class="td-loc">Waiouru Military Camp</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92426617?type=standard&ref=search-standalone#sol=2cf72c0a35ca636cb95a3c5bef5baaab4a45f63b" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.86s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92426500?type=standard&ref=search-standalone#sol=e1b5d0b7295409bdf60dbf3c6c992618d31d36ab" target="_blank">Plumber</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">PAE (NZ) Ltd</td>
+          <td class="td-loc">Palmerston North Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92426500?type=standard&ref=search-standalone#sol=e1b5d0b7295409bdf60dbf3c6c992618d31d36ab" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.89s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92426282?type=standard&ref=search-standalone#sol=478a2eb2581cbb8a248429a44d9cdb3ce37d2f79" target="_blank">Electrician - Ohakea</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">PAE (NZ) Ltd</td>
+          <td class="td-loc">Palmerston North Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92426282?type=standard&ref=search-standalone#sol=478a2eb2581cbb8a248429a44d9cdb3ce37d2f79" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.92s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92426243?type=standard&ref=search-standalone#sol=c0d9e1ab6b19e4fe138a942d66a374a6fd1713dd" target="_blank">Electrical Trade Assistant</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">PAE (NZ) Ltd</td>
+          <td class="td-loc">Palmerston North Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92426243?type=standard&ref=search-standalone#sol=c0d9e1ab6b19e4fe138a942d66a374a6fd1713dd" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.95s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92406304?type=standard&ref=search-standalone#sol=769af09284d4312f5f84752d58398abe24ae0bb1" target="_blank">Handy Person</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">Rosewood Hotels</td>
+          <td class="td-loc">Queenstown</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92406304?type=standard&ref=search-standalone#sol=769af09284d4312f5f84752d58398abe24ae0bb1" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:1.98s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92406200?type=standard&ref=search-standalone#sol=13dd6f9784b2d4d773f9f1cc3989e7101df4cde0" target="_blank">Stock controller /Rego</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">Harmony New Energy Auto Pro Servicing Pty Ltd</td>
+          <td class="td-loc">East Tamaki</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92406200?type=standard&ref=search-standalone#sol=13dd6f9784b2d4d773f9f1cc3989e7101df4cde0" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:2.01s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405601?type=standard&ref=search-standalone#sol=a55746b8734d93b9195c718a1203db9cb9e50b66" target="_blank">Security Officer</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">Auckland Museum</td>
+          <td class="td-loc">Parnell</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405601?type=standard&ref=search-standalone#sol=a55746b8734d93b9195c718a1203db9cb9e50b66" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:2.04s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405413?type=standard&ref=search-standalone#sol=c9d4fbbca44d34f5774d5dda59f79baf57bf9b6e" target="_blank">Electrician</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">RCR Infrastructure Limited</td>
+          <td class="td-loc">Tauranga Central</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405413?type=standard&ref=search-standalone#sol=c9d4fbbca44d34f5774d5dda59f79baf57bf9b6e" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:2.07s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92405347?type=standard&ref=search-standalone#sol=855830a32f1f337bf1c7263f90162206cc1f767c" target="_blank">Plumbers</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">Enterprise Recruitment</td>
+          <td class="td-loc">Queenstown</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92405347?type=standard&ref=search-standalone#sol=855830a32f1f337bf1c7263f90162206cc1f767c" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr>
+        <tr style="animation-delay:2.10s">
+          <td class="td-title">
+            <a href="https://www.seek.co.nz/job/92397261?type=standard&ref=search-standalone#sol=226efad5cc501909624d91eefd6e3d0fd24b2553" target="_blank">TTM Worker</a>
+            <span class="badge">Trades Services</span>
+          </td>
+          <td class="td-co">DOWNER NZ</td>
+          <td class="td-loc">Queenstown</td>
+          <td class="td-btn">
+            <a href="https://www.seek.co.nz/job/92397261?type=standard&ref=search-standalone#sol=226efad5cc501909624d91eefd6e3d0fd24b2553" target="_blank" class="btn">Apply ↗</a>
+          </td>
+        </tr></tbody>
+  </table>
+</div>
+<div class="foot">
+  <span>Visa removed: <b>165</b></span>
+  <span>Role removed: <b>199</b></span>
+  <span>City removed: <b>105</b></span>
+  <span>Filter rate: <b>87%</b></span>
+</div>
+</body>
+</html>
