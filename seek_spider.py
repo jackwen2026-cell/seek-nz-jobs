@@ -4,8 +4,6 @@ import pandas as pd
 from datetime import datetime
 import random
 
-# ================= 配置区 =================
-# 蓝领与基础工作扫描渠道
 SEARCH_URLS = [
     "https://www.seek.co.nz/labourer-jobs?sortmode=ListedDate",
     "https://www.seek.co.nz/packer-jobs?sortmode=ListedDate",
@@ -14,113 +12,103 @@ SEARCH_URLS = [
     "https://www.seek.co.nz/general-hand-jobs?sortmode=ListedDate"
 ]
 
-# 严格排雷词库（包含任何一个都会被无情剔除）
 BLACKLIST = [
     "legal right", "right to work", "working rights", "work rights", "eligible to work", "entitled to work",
     "nz citizen", "nz resident", "citizen or resident", "citizenship", "residency", "pr holder",
     "no visa sponsorship", "no sponsorship", "cannot sponsor", "unable to sponsor", "valid visa", "already in nz"
 ]
-# ==========================================
 
 async def scrape_seek():
-    # 统计数据
     stats = {"total_scanned": 0, "filtered_out": 0, "saved": 0}
     job_list = []
     seen_links = set()
 
     async with async_playwright() as p:
-        # 1. 启动浏览器时加入反爬虫伪装参数
         browser = await p.chromium.launch(
             headless=True,
             args=[
-                "--disable-blink-features=AutomationControlled", # 禁用自动化标记
+                "--disable-blink-features=AutomationControlled",
                 "--disable-infobars",
                 "--window-size=1920,1080"
             ]
         )
         
-        # 2. 伪装真实的设备环境指纹
         context = await browser.new_context(
             user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
             viewport={"width": 1920, "height": 1080},
-            locale="en-NZ",
-            timezone_id="Pacific/Auckland"
+            locale="en-NZ"
         )
         page = await context.new_page()
-        
-        # 隐藏 webdriver 属性 (反爬核心)
         await page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
         for url in SEARCH_URLS:
-            print(f"[*] 正在扫描: {url}")
+            print(f"[*] Scanning: {url}")
             try:
                 await page.goto(url, wait_until="domcontentloaded", timeout=60000)
-                # 随机停留 3 到 6 秒，模仿人类阅读
                 await page.wait_for_timeout(random.randint(3000, 6000)) 
             except Exception as e:
-                print(f"[!] 访问超时: {url} | 错误: {e}")
+                print(f"[!] Timeout: {url} | Error: {e}")
                 continue
 
-            # 获取所有职位卡片 (兼容两种常见的 SEEK 页面结构)
-            cards = await page.query_selector_all('article[data-testid="job-card"]')
-            if not cards:
-                cards = await page.query_selector_all('article') # 备用选择器
-                
+            # 兼容 SEEK 各种新老版本的卡片外壳
+            cards = await page.query_selector_all('article[data-automation="normalJob"], article[data-testid="job-card"], article')
             stats["total_scanned"] += len(cards)
             
             for card in cards:
                 try:
-                    title_el = await card.query_selector('a[data-testid="job-title"]')
+                    # 升级：同时兼容 data-automation 和 data-testid 两种标签
+                    title_el = await card.query_selector('[data-automation="jobTitle"], [data-testid="job-title"], h3 a')
                     if not title_el: continue
                     title = await title_el.inner_text()
                     
                     raw_link = await title_el.get_attribute("href")
+                    if not raw_link: continue
                     link = f"https://www.seek.co.nz{raw_link}" if raw_link.startswith("/") else raw_link
                     
-                    if link in seen_links:
+                    # 去重，防止同一个网址被抓两次
+                    clean_link = link.split('?')[0]
+                    if clean_link in seen_links:
                         continue
-                    seen_links.add(link)
+                    seen_links.add(clean_link)
                     
-                    company_el = await card.query_selector('a[data-testid="job-company"]')
+                    company_el = await card.query_selector('[data-automation="jobCompany"], [data-testid="job-company"]')
                     company = await company_el.inner_text() if company_el else "Private Advertiser"
                     
-                    location_el = await card.query_selector('a[data-testid="job-location"]')
+                    location_el = await card.query_selector('[data-automation="jobLocation"], [data-testid="job-location"]')
                     location = await location_el.inner_text() if location_el else "NZ Wide"
                     
-                    date_el = await card.query_selector('span[data-testid="job-listing-date"]')
+                    date_el = await card.query_selector('[data-automation="jobListingDate"], span[data-testid="job-listing-date"]')
                     date_text = await date_el.inner_text() if date_el else "Recent"
 
-                    teaser_el = await card.query_selector('span[data-testid="job-teaser"]')
+                    teaser_el = await card.query_selector('[data-automation="jobShortDescription"], span[data-testid="job-teaser"]')
                     teaser = await teaser_el.inner_text() if teaser_el else ""
 
-                    # 将标题和摘要合并，转为小写进行排雷
                     full_text = (title + " " + teaser).lower()
                     
-                    # 排雷逻辑
+                    # 检查是否踩雷
                     is_blacklisted = any(kw in full_text for kw in BLACKLIST)
                     
                     if is_blacklisted:
                         stats["filtered_out"] += 1
                         continue
                         
-                    # 存活下来的岗位
+                    # 存活岗位
                     stats["saved"] += 1
                     job_list.append({
                         "Job Title": title,
                         "Employer": company,
                         "Location": location,
                         "Listed Date": date_text,
-                        "Action": f'<a href="{link}" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a>'
+                        "Action": f'<a href="{clean_link}" target="_blank" style="color: #ffffff; background-color: #4F46E5; padding: 6px 12px; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center;">View Role ↗</a>'
                     })
                 except Exception as e:
-                    print(f"[!] 解析卡片出错: {e}")
+                    print(f"[!] Parsing error: {e}")
                     continue
                     
         await browser.close()
         return job_list, stats
 
 def generate_html(jobs, stats):
-    # 处理空数据的情况
     if not jobs:
         jobs = [{"Job Title": "No matching jobs found today.", "Employer": "-", "Location": "-", "Listed Date": "-", "Action": "-"}]
         
@@ -138,7 +126,6 @@ def generate_html(jobs, stats):
             .container {{ max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }}
             h2 {{ color: #0f172a; margin-top: 0; font-size: 28px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }}
             
-            /* 数据看板样式 */
             .dashboard {{ display: flex; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }}
             .stat-card {{ flex: 1; min-width: 200px; padding: 20px; border-radius: 8px; text-align: center; font-weight: bold; }}
             .stat-scanned {{ background-color: #f8fafc; border: 1px solid #e2e8f0; color: #475569; }}
