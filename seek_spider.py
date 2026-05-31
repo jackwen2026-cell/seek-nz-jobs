@@ -3,23 +3,24 @@ from playwright.async_api import async_playwright
 import pandas as pd
 import random
 
-# 1. 扫描范围：蓝领核心类目
+# 1. 核心搜索分类
 SEARCH_URLS = [
-    "https://www.seek.co.nz/labourer-jobs?sortmode=ListedDate",
-    "https://www.seek.co.nz/warehouse-jobs?sortmode=ListedDate",
-    "https://www.seek.co.nz/manufacturing-jobs?sortmode=ListedDate",
-    "https://www.seek.co.nz/general-hand-jobs?sortmode=ListedDate"
+    "https://www.seek.co.nz/labourer-jobs",
+    "https://www.seek.co.nz/warehouse-jobs",
+    "https://www.seek.co.nz/manufacturing-jobs",
+    "https://www.seek.co.nz/general-hand-jobs"
 ]
 
-# 2. 终极过滤器：同时包含（排雷 + 司机过滤 + 地区限制）
-BLACKLIST_KEYWORDS = [
-    "driver", "delivery", "courier", "truck", "driving", "transport", # 司机排雷
-    "legal right", "right to work", "nz citizen", "nz resident", "pr holder", # 身份排雷
-    "no visa sponsorship", "cannot sponsor" # 签证排雷
+# 2. 终极过滤词库（Visa + 司机 + 身份）
+BLACKLIST = [
+    # 身份限制
+    "nz citizen", "nz resident", "right to work", "valid visa", "citizenship", "pr holder",
+    # 司机/运输限制
+    "driver", "delivery", "courier", "truck", "transport", "driving", "forklift" 
 ]
 
-# 核心搜索策略：只看偏远地区（不在这些大城市里的岗位才有机会）
-TARGET_LOCATIONS = ["auckland", "wellington", "christchurch"]
+# 3. 大城市过滤（这里填入你要排除的城市）
+BIG_CITIES = ["auckland", "wellington", "christchurch", "central auckland"]
 
 async def scrape_seek():
     stats = {"total_scanned": 0, "filtered_out": 0, "saved": 0}
@@ -30,39 +31,49 @@ async def scrape_seek():
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
 
-        for url in SEARCH_URLS:
-            await page.goto(url, wait_until="domcontentloaded")
-            await page.wait_for_timeout(3000)
-            
-            cards = await page.query_selector_all('article[data-automation="normalJob"]')
-            
-            for card in cards:
-                stats["total_scanned"] += 1
+        for base_url in SEARCH_URLS:
+            # 自动翻 3 页
+            for page_num in range(1, 4):
+                url = f"{base_url}?page={page_num}&sortmode=ListedDate"
+                try:
+                    await page.goto(url, wait_until="domcontentloaded")
+                    await page.wait_for_timeout(2000)
+                except: continue
                 
-                # 获取信息
-                title = await (await card.query_selector('[data-automation="jobTitle"]')).inner_text()
-                loc = await (await card.query_selector('[data-automation="jobLocation"]')).inner_text()
+                cards = await page.query_selector_all('article[data-automation="normalJob"]')
+                stats["total_scanned"] += len(cards)
                 
-                # A. 司机排雷 + 身份排雷
-                if any(kw in title.lower() for kw in BLACKLIST_KEYWORDS):
-                    stats["filtered_out"] += 1
-                    continue
-                
-                # B. 偏远地区优先：如果工作地点不在大城市，视为更有潜力的冷门岗
-                # 这里我们反过来：如果岗位在奥克兰/惠灵顿，它会被标记为“竞争高”，我们过滤掉
-                if any(city in loc.lower() for city in TARGET_LOCATIONS):
-                    stats["filtered_out"] += 1
-                    continue
-                
-                # 存活下来的：偏远地区 + 无身份歧视 + 非司机
-                stats["saved"] += 1
-                link = await (await card.query_selector("a")).get_attribute("href")
-                job_list.append({
-                    "Job Title": title,
-                    "Location": loc,
-                    "Action": f'<a href="https://www.seek.co.nz{link}" target="_blank">View Role ↗</a>'
-                })
+                for card in cards:
+                    title_el = await card.query_selector('[data-automation="jobTitle"]')
+                    loc_el = await card.query_selector('[data-automation="jobLocation"]')
+                    if not title_el or not loc_el: continue
+                    
+                    title = await title_el.inner_text()
+                    loc = await loc_el.inner_text()
+                    
+                    # === 核心过滤器 ===
+                    # 1. 标题检查 (Visa/司机/身份)
+                    if any(bad_word in title.lower() for bad_word in BLACKLIST):
+                        stats["filtered_out"] += 1
+                        continue
+                    
+                    # 2. 地区检查 (剔除大城市)
+                    if any(city in loc.lower() for city in BIG_CITIES):
+                        stats["filtered_out"] += 1
+                        continue
+                    
+                    # === 如果通过以上所有关卡 ===
+                    link = await (await card.query_selector("a")).get_attribute("href")
+                    if link in seen_links: continue
+                    seen_links.add(link)
+                    
+                    stats["saved"] += 1
+                    job_list.append({
+                        "Job Title": title,
+                        "Location": loc,
+                        "Action": f'<a href="https://www.seek.co.nz{link}" target="_blank">View ↗</a>'
+                    })
         await browser.close()
         return job_list, stats
 
-# ... (generate_html 保持不变)
+# ... (之后的 generate_html 函数代码保持你之前的样子即可)
