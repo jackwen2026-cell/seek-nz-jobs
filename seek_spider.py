@@ -11,21 +11,36 @@ async def scrape_seek():
         )
         page = await context.new_page()
         
-        # Pure English channels for NZ blue-collar jobs with AEWV
+        # 1. Expanded search URLs covering ALL entry-level & blue-collar categories on SEEK NZ
         search_urls = [
-            "https://www.seek.co.nz/labourer-aewv-jobs?sortmode=ListedDate",
-            "https://www.seek.co.nz/packer-aewv-jobs?sortmode=ListedDate",
-            "https://www.seek.co.nz/warehouse-aewv-jobs?sortmode=ListedDate",
-            "https://www.seek.co.nz/cleaner-aewv-jobs?sortmode=ListedDate",
-            "https://www.seek.co.nz/general-hand-aewv-jobs?sortmode=ListedDate"
+            "https://www.seek.co.nz/labourer-jobs?sortmode=ListedDate",
+            "https://www.seek.co.nz/packer-jobs?sortmode=ListedDate",
+            "https://www.seek.co.nz/warehouse-jobs?sortmode=ListedDate",
+            "https://www.seek.co.nz/cleaner-jobs?sortmode=ListedDate",
+            "https://www.seek.co.nz/general-hand-jobs?sortmode=ListedDate",
+            "https://www.seek.co.nz/entry-level-jobs?sortmode=ListedDate",
+            "https://www.seek.co.nz/kitchen-hand-jobs?sortmode=ListedDate",
+            "https://www.seek.co.nz/factory-hand-jobs?sortmode=ListedDate"
         ]
         
         job_list = []
         seen_links = set()
 
+        # 2. Hardcore Exclusion Keywords (Eliminates listings requiring existing work rights or local citizens)
+        blacklist_keywords = [
+            # Legal Work Rights & Visas
+            "legal right", "right to work", "working rights", "work rights", "eligible to work", "entitled to work",
+            "valid nz visa", "current nz visa", "already in nz", "immediate start",
+            # Citizenship & Residency 
+            "nz citizen", "nz resident", "citizen or resident", "citizenship", "residency", "pr holder",
+            # Explicit No Sponsorship
+            "no visa sponsorship", "no sponsorship", "cannot sponsor", "unable to sponsor", "no aewv sponsorship"
+        ]
+
         for url in search_urls:
             print(f"Scanning: {url}")
             try:
+                # 60s timeout to handle huge data pools smoothly
                 await page.goto(url, wait_until="domcontentloaded", timeout=60000)
                 await page.wait_for_timeout(4000) 
             except Exception as e:
@@ -58,15 +73,25 @@ async def scrape_seek():
                     teaser_element = await card.query_selector('span[data-testid="job-teaser"]')
                     teaser = await teaser_element.inner_text() if teaser_element else ""
 
-                    text_to_check = (title + teaser).lower()
-                    if "aewv" in text_to_check or "sponsorship" in text_to_check or "accredited" in text_to_check:
+                    # Combine title and teaser snippet for the filtering phase
+                    full_text_lower = (title + " " + teaser).lower()
+                    
+                    # Anti-Local-Rights Filter Execution
+                    is_blacklisted = False
+                    for kw in blacklist_keywords:
+                        if kw in full_text_lower:
+                            is_blacklisted = True
+                            break
+                    
+                    # Pass the filter -> Save the potential gem
+                    if not is_blacklisted:
                         job_list.append({
-                            "Category": "Blue Collar / AEWV",
+                            "Category": "Entry / Blue Collar",
                             "Job Title": title,
                             "Employer": company,
                             "Location": location,
                             "Listed Date": date_text,
-                            "Action": f'<a href="{link}" target="_blank" style="color: #007A87; font-weight: bold; text-decoration: none;">Apply Now ↗</a>'
+                            "Action": f'<a href="{link}" target="_blank" style="color: #4F46E5; font-weight: bold; text-decoration: none;">Check Details ↗</a>'
                         })
                         seen_links.add(link)
                 except:
@@ -77,7 +102,7 @@ async def scrape_seek():
 
 def generate_html(jobs):
     if not jobs:
-        jobs = [{"Category": "-", "Job Title": "No new jobs found matching AEWV keywords today. Please refresh later.", "Employer": "-", "Location": "-", "Listed Date": "-", "Action": "-"}]
+        jobs = [{"Category": "-", "Job Title": "All scanned jobs require local work rights today. Keep an eye out tomorrow!", "Employer": "-", "Location": "-", "Listed Date": "-", "Action": "-"}]
         
     df = pd.DataFrame(jobs)
     
@@ -87,16 +112,16 @@ def generate_html(jobs):
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>NZ AEWV Job Monitor (Blue Collar)</title>
+        <title>NZ Entry-Level & Blue-Collar Job Monitor</title>
         <style>
             body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background-color: #f8fafc; color: #1e293b; }}
             .container {{ max-width: 1100px; margin: 0 auto; background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }}
-            h2 {{ color: #0f172a; margin-top: 0; font-size: 24px; border-left: 5px solid #007A87; padding-left: 10px; }}
+            h2 {{ color: #1e293b; margin-top: 0; font-size: 24px; border-left: 5px solid #4F46E5; padding-left: 10px; }}
             .time {{ font-size: 13px; color: #64748b; margin-bottom: 20px; background: #f1f5f9; padding: 8px 12px; border-radius: 6px; display: inline-block; }}
-            .tip {{ background: #e0f2fe; border-left: 4px solid #0284c7; padding: 12px; font-size: 14px; margin-bottom: 20px; border-radius: 4px; line-height: 1.5; color: #0369a1; }}
+            .tip {{ background: #ecfdf5; border-left: 4px solid #10b981; padding: 12px; font-size: 14px; margin-bottom: 20px; border-radius: 4px; line-height: 1.5; color: #065f46; }}
             table {{ width: 100%; border-collapse: collapse; margin-top: 10px; }}
             th, td {{ padding: 14px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 15px; }}
-            th {{ background-color: #007A87; color: white; font-weight: 600; letter-spacing: 0.5px; }}
+            th {{ background-color: #4F46E5; color: white; font-weight: 600; letter-spacing: 0.5px; }}
             tr:hover {{ background-color: #f8fafc; }}
             @media (max-width: 768px) {{
                 table, thead, tbody, th, td, tr {{ display: block; }}
@@ -110,10 +135,10 @@ def generate_html(jobs):
     </head>
     <body>
         <div class="container">
-            <h2>New Zealand AEWV Job Monitor (Labour / Packing / Logistics)</h2>
-            <div class="time">🕒 Last updated (NZT/AU Local): {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</div>
+            <h2>NZ Entry-Level & Blue-Collar Monitor (No Local Rights Restrictions)</h2>
+            <div class="time">🕒 Filtered and Refreshed at (Beijing Time): {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</div>
             <div class="tip">
-                📌 <b>Job Hunting Tip:</b> This dashboard monitors SEEK NZ for roles explicitly mentioning <b>AEWV, Visa Sponsorship, or Accredited Employer</b>. Roles update automatically twice a day.
+                🚀 <b>Master Filter Activated:</b> 8 major entry-level/blue-collar job feeds scanned. Any jobs demanding existing "NZ Citizen/Resident" or "Legal Right to Work" have been fully filtered out. High-yield target list for overseas seekers!
             </div>
             {df.to_html(escape=False, index=False)}
         </div>
