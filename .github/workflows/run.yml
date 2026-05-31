@@ -2,36 +2,34 @@ name: Auto Scrape SEEK NZ
 
 on:
   schedule:
-    # 每天北京时间早上 8:30 和下午 5:30 自动执行 (对应 UTC 时间 00:30 和 09:30)
-    - cron: '30 0,9 * * *'
-  workflow_dispatch: # 允许你手动点击按钮随时运行
-
-permissions:
-  contents: write
+    - cron: '0 22,10 * * *' # 每天定时自动运行两次
+  workflow_dispatch: # 允许你随时手动点击运行
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
     steps:
-    - name: 检出代码
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4  # 🌟 已升级到最新的 v4
 
-    - name: 设置 Python 环境
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v5  # 🌟 已升级到最新的 v5
+        with:
+          python-version: '3.11' # 升级到更稳定的 Python 3.11
 
-    - name: 安装依赖
-      run: |
-        pip install playwright pandas openpyxl
-        playwright install chromium
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install playwright pandas
+          playwright install chromium
 
-    - name: 执行抓取脚本
-      run: python seek_spider.py
+      - name: Run scraper
+        run: python seek_spider.py
 
-    - name: 将生成的网页提交回仓库
-      run: |
-        git config --local user.email "actions@github.com"
-        git config --local user.name "GitHub Actions"
-        git add index.html
-        git diff --quiet && git diff --staged --quiet || (git commit -m "自动更新职位列表" && git push)
+      - name: Commit and push updates
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add index.html
+          git commit -m "Auto-update latest NZ blue-collar jobs" || exit 0
+          git push
